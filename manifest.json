@@ -1,0 +1,18 @@
+{
+  "manifest_version": 3,
+  "name": "Tabs Snapshot",
+  "version": "1.0",
+  "description": "Automatically capture tab snapshots to recover from auth redirects",
+  "permissions": [
+    "tabs",
+    "storage",
+    "alarms"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Tabs Snapshot"
+  },
+  "background": {
+    "service_worker": "background.js"
+  }
+}

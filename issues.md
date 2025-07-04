@@ -1,5 +1,7 @@
 # Issues Tracker
 
+> **Note**: This project now uses GitHub Issues for tracking. See [github-issues-template.md](./github-issues-template.md) for migrating these issues to GitHub.
+
 ## Open Issues
 
 _No open issues_

@@ -198,11 +198,19 @@ const App: React.FC = () => {
             const isExpanded = expandedSnapshots.has(snapshot.id)
             
             return (
-              <div key={snapshot.id} className="snapshot-item">
-                <div 
-                  className="snapshot-header"
-                  onClick={() => toggleSnapshot(snapshot.id)}
-                >
+              <div 
+                key={snapshot.id} 
+                className="snapshot-item"
+                onClick={(e) => {
+                  // Only toggle if not clicking on buttons or tabs
+                  const target = e.target as HTMLElement
+                  if (target.closest('button') || target.closest('.tab-item')) {
+                    return
+                  }
+                  toggleSnapshot(snapshot.id)
+                }}
+              >
+                <div className="snapshot-header">
                   <div className="snapshot-time">{timeStr} ({dayStr})</div>
                   <div className="snapshot-count">{snapshot.tabs.length} tabs</div>
                 </div>

@@ -111,13 +111,13 @@ const App: React.FC = () => {
 
   const toggleSnapshot = (snapshotId: string) => {
     setExpandedSnapshots(prev => {
-      const newSet = new Set(prev)
-      if (newSet.has(snapshotId)) {
-        newSet.delete(snapshotId)
+      // If clicking on already expanded snapshot, close it
+      if (prev.has(snapshotId)) {
+        return new Set()
       } else {
-        newSet.add(snapshotId)
+        // Open only this snapshot, close all others (accordion behavior)
+        return new Set([snapshotId])
       }
-      return newSet
     })
   }
 

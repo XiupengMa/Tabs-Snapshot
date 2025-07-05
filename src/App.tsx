@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import SnapshotItem from './SnapshotItem'
+import Toast from './Toast'
 
 interface Tab {
   url: string
@@ -17,6 +18,12 @@ interface Settings {
   interval: number
 }
 
+interface ToastData {
+  id: string
+  message: string
+  type: 'info' | 'success' | 'warning' | 'error'
+}
+
 const App: React.FC = () => {
   const [snapshots, setSnapshots] = useState<Snapshot[]>([])
   const [settings, setSettings] = useState<Settings>({ interval: 5 })
@@ -24,12 +31,26 @@ const App: React.FC = () => {
   const [expandedSnapshots, setExpandedSnapshots] = useState<Set<string>>(new Set())
   const [errorMessage, setErrorMessage] = useState<string>('')
   const [timeSpan, setTimeSpan] = useState<string>('Coverage: ~8 hours')
+  const [toasts, setToasts] = useState<ToastData[]>([])
   
   const saveTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   useEffect(() => {
     loadSettings()
     loadSnapshots()
+    
+    // Listen for messages from background script
+    const messageListener = (message: any) => {
+      if (message.type === 'duplicateSkipped') {
+        showToast('Duplicate snapshot skipped - no changes detected', 'info')
+      }
+    }
+    
+    chrome.runtime.onMessage.addListener(messageListener)
+    
+    return () => {
+      chrome.runtime.onMessage.removeListener(messageListener)
+    }
   }, [])
 
   const loadSettings = () => {
@@ -107,6 +128,16 @@ const App: React.FC = () => {
 
   const hideError = () => {
     setErrorMessage('')
+  }
+
+  const showToast = (message: string, type: ToastData['type'] = 'info') => {
+    const id = Date.now().toString()
+    const newToast: ToastData = { id, message, type }
+    setToasts(prev => [...prev, newToast])
+  }
+
+  const removeToast = (id: string) => {
+    setToasts(prev => prev.filter(toast => toast.id !== id))
   }
 
   const toggleSnapshot = (snapshotId: string) => {
@@ -219,6 +250,16 @@ const App: React.FC = () => {
           ))
         )}
       </div>
+      
+      {/* Toast Notifications */}
+      {toasts.map((toast) => (
+        <Toast
+          key={toast.id}
+          message={toast.message}
+          type={toast.type}
+          onClose={() => removeToast(toast.id)}
+        />
+      ))}
     </div>
   )
 }

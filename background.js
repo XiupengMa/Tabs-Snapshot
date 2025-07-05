@@ -85,6 +85,18 @@ async function saveCurrentTabs() {
       const lastSnapshot = snapshots[0];
       if (areSnapshotsIdentical(snapshot, lastSnapshot)) {
         console.log("Duplicate snapshot detected, skipping save");
+        
+        // Notify popup about duplicate detection
+        try {
+          chrome.runtime.sendMessage({
+            type: 'duplicateSkipped',
+            message: 'Duplicate snapshot skipped - no changes detected'
+          });
+        } catch (error) {
+          // Popup might not be open, which is fine
+          console.log('Could not notify popup about duplicate (popup likely closed)');
+        }
+        
         return;
       }
     }

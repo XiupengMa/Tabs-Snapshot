@@ -206,3 +206,87 @@ button.delete:hover {
   display: flex;
   gap: 4px;
 }
+
+/* Toast Notifications */
+.toast {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 1000;
+  min-width: 200px;
+  max-width: 350px;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease-in-out;
+  font-size: 12px;
+}
+
+.toast-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.toast-hidden {
+  opacity: 0;
+  transform: translateX(100%);
+}
+
+.toast-content {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  gap: 8px;
+}
+
+.toast-icon {
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.toast-message {
+  flex: 1;
+  line-height: 1.4;
+}
+
+.toast-close {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 0;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.7;
+  flex-shrink: 0;
+}
+
+.toast-close:hover {
+  opacity: 1;
+}
+
+.toast-info {
+  background-color: #e3f2fd;
+  border-left: 4px solid #2196f3;
+  color: #1565c0;
+}
+
+.toast-success {
+  background-color: #e8f5e8;
+  border-left: 4px solid #4caf50;
+  color: #2e7d32;
+}
+
+.toast-warning {
+  background-color: #fff3e0;
+  border-left: 4px solid #ff9800;
+  color: #f57c00;
+}
+
+.toast-error {
+  background-color: #ffebee;
+  border-left: 4px solid #f44336;
+  color: #c62828;
+}

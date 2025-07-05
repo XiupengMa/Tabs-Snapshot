@@ -259,12 +259,15 @@ button.delete:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0.7;
+  opacity: 0.8;
   flex-shrink: 0;
+  color: #666;
+  font-weight: bold;
 }
 
 .toast-close:hover {
   opacity: 1;
+  color: #333;
 }
 
 .toast-info {

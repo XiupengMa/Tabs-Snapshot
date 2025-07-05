@@ -87,7 +87,7 @@ button.secondary:hover {
   display: flex;
   flex-direction: column;
   margin-bottom: 4px;
-  padding: 8px 12px;
+  padding: 4px 12px;
   background-color: white;
   cursor: pointer;
 }
@@ -103,7 +103,8 @@ button.secondary:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
+  min-height: 24px;
 }
 
 .snapshot-controls {

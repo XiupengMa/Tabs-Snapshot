@@ -9,7 +9,7 @@
     "alarms"
   ],
   "action": {
-    "default_popup": "popup.html",
+    "default_popup": "popup-react.html",
     "default_title": "Tabs Snapshot"
   },
   "background": {

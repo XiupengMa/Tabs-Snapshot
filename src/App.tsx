@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
+import SnapshotItem from './SnapshotItem'
 
 interface Tab {
   url: string
@@ -191,92 +192,18 @@ const App: React.FC = () => {
         {snapshots.length === 0 ? (
           <div className="empty-state">No snapshots yet</div>
         ) : (
-          snapshots.map((snapshot) => {
-            const date = new Date(snapshot.timestamp)
-            const timeStr = date.toLocaleString()
-            const dayStr = date.toLocaleDateString('en-US', { weekday: 'long' })
-            const isExpanded = expandedSnapshots.has(snapshot.id)
-            
-            return (
-              <div 
-                key={snapshot.id} 
-                className="snapshot-item"
-                onClick={(e) => {
-                  // Only toggle if not clicking on buttons or tabs
-                  const target = e.target as HTMLElement
-                  if (target.closest('button') || target.closest('.tab-item')) {
-                    return
-                  }
-                  toggleSnapshot(snapshot.id)
-                }}
-              >
-                <div className="snapshot-header">
-                  <div className="snapshot-time">{timeStr} ({dayStr})</div>
-                  <div className="snapshot-count">{snapshot.tabs.length} tabs</div>
-                </div>
-                
-                {isExpanded && (
-                  <div className="snapshot-tabs expanded">
-                    <div className="delete-options">
-                      <button 
-                        className="delete delete-btn"
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          handleDeleteSnapshot(snapshot.id)
-                        }}
-                      >
-                        Delete
-                      </button>
-                      <button 
-                        className="delete delete-older-btn"
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          handleDeleteOlderSnapshots(snapshot.id)
-                        }}
-                      >
-                        Delete Older
-                      </button>
-                    </div>
-                    
-                    <div className="restore-options">
-                      <button 
-                        className="secondary restore-btn"
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          handleRestoreSnapshot(snapshot.id, false)
-                        }}
-                      >
-                        Open All
-                      </button>
-                      <button 
-                        className="secondary restore-btn"
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          handleRestoreSnapshot(snapshot.id, true)
-                        }}
-                      >
-                        Replace Current
-                      </button>
-                    </div>
-                    
-                    {snapshot.tabs.map((tab, index) => (
-                      <div 
-                        key={index}
-                        className="tab-item"
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          handleTabClick(tab.url)
-                        }}
-                      >
-                        <div className="tab-title">{tab.title}</div>
-                        <div className="tab-url">{tab.url}</div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            )
-          })
+          snapshots.map((snapshot) => (
+            <SnapshotItem
+              key={snapshot.id}
+              snapshot={snapshot}
+              isExpanded={expandedSnapshots.has(snapshot.id)}
+              onToggle={() => toggleSnapshot(snapshot.id)}
+              onDeleteSnapshot={handleDeleteSnapshot}
+              onDeleteOlderSnapshots={handleDeleteOlderSnapshots}
+              onRestoreSnapshot={handleRestoreSnapshot}
+              onTabClick={handleTabClick}
+            />
+          ))
         )}
       </div>
     </div>

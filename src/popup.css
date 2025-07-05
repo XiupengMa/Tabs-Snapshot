@@ -85,9 +85,32 @@ button.secondary:hover {
 
 .snapshot-header {
   display: flex;
+  flex-direction: column;
+  margin-bottom: 4px;
+  padding: 8px 12px;
+  background-color: white;
+  border-bottom: 1px solid #e0e0e0;
+  cursor: pointer;
+}
+
+.snapshot-header.sticky {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.snapshot-info {
+  display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 4px;
+  margin-bottom: 8px;
+}
+
+.snapshot-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .snapshot-time {
@@ -180,7 +203,6 @@ button.delete:hover {
 }
 
 .delete-options {
-  margin-bottom: 8px;
   display: flex;
   gap: 8px;
 }

@@ -4,6 +4,10 @@ node_modules/
 # Build output
 dist/
 
+# Extension packaging
+extension-package/
+tabs-snapshot-extension.zip
+
 # Development
 .DS_Store
 *.log

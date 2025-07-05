@@ -36,7 +36,7 @@ const SnapshotItem: React.FC<SnapshotItemProps> = ({
   const dayStr = date.toLocaleDateString('en-US', { weekday: 'long' })
 
   return (
-    <div className="snapshot-item">
+    <div className="snapshot-item" data-snapshot-id={snapshot.id}>
       <div 
         className={`snapshot-header ${isExpanded ? 'sticky' : ''}`}
         onClick={(e) => {

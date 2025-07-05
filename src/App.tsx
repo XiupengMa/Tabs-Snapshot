@@ -116,7 +116,20 @@ const App: React.FC = () => {
         return new Set()
       } else {
         // Open only this snapshot, close all others (accordion behavior)
-        return new Set([snapshotId])
+        const newSet = new Set([snapshotId])
+        
+        // Auto-scroll to the snapshot header after state update
+        setTimeout(() => {
+          const snapshotElement = document.querySelector(`[data-snapshot-id="${snapshotId}"]`)
+          if (snapshotElement) {
+            snapshotElement.scrollIntoView({ 
+              behavior: 'smooth', 
+              block: 'start' 
+            })
+          }
+        }, 50) // Small delay to ensure DOM is updated
+        
+        return newSet
       }
     })
   }

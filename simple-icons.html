@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quick Icon Generator</title>
+</head>
+<body>
+    <h1>Tabs Snapshot Icons</h1>
+    <p>Right-click each icon and "Save image as..." to download:</p>
+    
+    <div style="margin: 20px;">
+        <h3>16x16 Icon</h3>
+        <canvas id="icon16" width="16" height="16" style="border: 1px solid #ccc; image-rendering: pixelated; width: 64px; height: 64px;"></canvas>
+        <br><a id="download16" download="icon16.png">Download icon16.png</a>
+    </div>
+    
+    <div style="margin: 20px;">
+        <h3>48x48 Icon</h3>
+        <canvas id="icon48" width="48" height="48" style="border: 1px solid #ccc; width: 96px; height: 96px;"></canvas>
+        <br><a id="download48" download="icon48.png">Download icon48.png</a>
+    </div>
+    
+    <div style="margin: 20px;">
+        <h3>128x128 Icon</h3>
+        <canvas id="icon128" width="128" height="128" style="border: 1px solid #ccc; width: 128px; height: 128px;"></canvas>
+        <br><a id="download128" download="icon128.png">Download icon128.png</a>
+    </div>
+
+    <script>
+        function drawIcon(canvasId, size) {
+            const canvas = document.getElementById(canvasId);
+            const ctx = canvas.getContext('2d');
+            
+            // Clear canvas
+            ctx.clearRect(0, 0, size, size);
+            
+            // Background gradient
+            const gradient = ctx.createRadialGradient(size/2, size/2, 0, size/2, size/2, size/2);
+            gradient.addColorStop(0, '#4CAF50');
+            gradient.addColorStop(1, '#2196F3');
+            
+            // Draw background circle
+            ctx.fillStyle = gradient;
+            ctx.beginPath();
+            ctx.arc(size/2, size/2, size/2 - 1, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            // Draw tab layers
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+            const layerWidth = Math.floor(size * 0.6);
+            const layerHeight = Math.max(1, Math.floor(size * 0.08));
+            const spacing = Math.max(2, Math.floor(size * 0.12));
+            const startY = Math.floor(size * 0.25);
+            const startX = Math.floor((size - layerWidth) / 2);
+            
+            for (let i = 0; i < 4; i++) {
+                const y = startY + (i * spacing);
+                if (y + layerHeight < size) {
+                    ctx.fillRect(startX, y, layerWidth, layerHeight);
+                }
+            }
+            
+            // Draw camera indicator
+            const cameraSize = Math.max(2, Math.floor(size * 0.12));
+            const cameraX = Math.floor(size * 0.75);
+            const cameraY = Math.floor(size * 0.75);
+            
+            // Yellow camera body
+            ctx.fillStyle = '#FFC107';
+            ctx.beginPath();
+            ctx.arc(cameraX, cameraY, cameraSize, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            // White camera lens
+            const lensSize = Math.max(1, Math.floor(cameraSize * 0.6));
+            ctx.fillStyle = 'white';
+            ctx.beginPath();
+            ctx.arc(cameraX, cameraY, lensSize, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            // Set up download link
+            const downloadLink = document.getElementById('download' + size);
+            downloadLink.href = canvas.toDataURL();
+            downloadLink.onclick = function() {
+                console.log(`Downloaded icon${size}.png`);
+            };
+        }
+        
+        // Generate all icons
+        drawIcon('icon16', 16);
+        drawIcon('icon48', 48);
+        drawIcon('icon128', 128);
+        
+        console.log('Icons generated! Click the download links or right-click icons to save.');
+    </script>
+</body>
+</html>

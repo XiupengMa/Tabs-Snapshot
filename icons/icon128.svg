@@ -1,0 +1,24 @@
+<svg width="128" height="128" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+    <!-- Background gradient circle -->
+    <defs>
+        <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#4CAF50;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#2196F3;stop-opacity:1" />
+        </linearGradient>
+    </defs>
+    
+    <!-- Background circle -->
+    <circle cx="64" cy="64" r="63" fill="url(#bg-gradient)" />
+    
+    <!-- Tab layers representing snapshots -->
+    <g fill="white" opacity="0.9">
+        <rect x="25.6" y="32" width="76.8" height="10.24" rx="2"/>
+        <rect x="25.6" y="47.36" width="76.8" height="10.24" rx="2"/>
+        <rect x="25.6" y="62.72" width="76.8" height="10.24" rx="2"/>
+        <rect x="25.6" y="78.08" width="76.8" height="10.24" rx="2"/>
+    </g>
+    
+    <!-- Camera/snapshot indicator -->
+    <circle cx="96" cy="96" r="19.2" fill="#FFC107"/>
+    <circle cx="96" cy="96" r="11.52" fill="white"/>
+</svg>

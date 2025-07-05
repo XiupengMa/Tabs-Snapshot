@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tabs Snapshot Icon Generator</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .icon-container { margin: 20px; display: inline-block; text-align: center; }
+        .icon { border: 1px solid #ccc; margin: 10px; }
+        canvas { display: block; margin: 10px auto; border: 1px solid #ddd; }
+    </style>
+</head>
+<body>
+    <h1>Tabs Snapshot Extension Icons</h1>
+    <p>Generated icons for Chrome Web Store submission:</p>
+    
+    <div class="icon-container">
+        <h3>16x16 (Toolbar)</h3>
+        <canvas id="icon16" width="16" height="16"></canvas>
+        <button onclick="downloadIcon('icon16', '16')">Download icon16.png</button>
+    </div>
+    
+    <div class="icon-container">
+        <h3>48x48 (Extension Management)</h3>
+        <canvas id="icon48" width="48" height="48"></canvas>
+        <button onclick="downloadIcon('icon48', '48')">Download icon48.png</button>
+    </div>
+    
+    <div class="icon-container">
+        <h3>128x128 (Chrome Web Store)</h3>
+        <canvas id="icon128" width="128" height="128"></canvas>
+        <button onclick="downloadIcon('icon128', '128')">Download icon128.png</button>
+    </div>
+
+    <script>
+        function createIcon(canvasId, size) {
+            const canvas = document.getElementById(canvasId);
+            const ctx = canvas.getContext('2d');
+            
+            // Clear canvas
+            ctx.clearRect(0, 0, size, size);
+            
+            // Background gradient
+            const gradient = ctx.createLinearGradient(0, 0, size, size);
+            gradient.addColorStop(0, '#4CAF50');
+            gradient.addColorStop(1, '#2196F3');
+            
+            // Draw background circle
+            ctx.fillStyle = gradient;
+            ctx.beginPath();
+            ctx.arc(size/2, size/2, size/2 - 1, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            // Draw snapshot layers (representing tabs)
+            ctx.fillStyle = 'white';
+            const layerWidth = size * 0.6;
+            const layerHeight = size * 0.08;
+            const spacing = size * 0.12;
+            const startY = size * 0.25;
+            
+            for (let i = 0; i < 4; i++) {
+                const y = startY + (i * spacing);
+                const x = (size - layerWidth) / 2;
+                
+                // Draw tab layer with slight shadow effect
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+                ctx.fillRect(x + 1, y + 1, layerWidth, layerHeight);
+                
+                ctx.fillStyle = 'white';
+                ctx.fillRect(x, y, layerWidth, layerHeight);
+            }
+            
+            // Draw camera/snapshot indicator
+            const cameraSize = size * 0.15;
+            const cameraX = size * 0.75;
+            const cameraY = size * 0.75;
+            
+            ctx.fillStyle = '#FFC107';
+            ctx.beginPath();
+            ctx.arc(cameraX, cameraY, cameraSize, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            // Camera lens
+            ctx.fillStyle = 'white';
+            ctx.beginPath();
+            ctx.arc(cameraX, cameraY, cameraSize * 0.6, 0, 2 * Math.PI);
+            ctx.fill();
+        }
+        
+        function downloadIcon(canvasId, size) {
+            const canvas = document.getElementById(canvasId);
+            const link = document.createElement('a');
+            link.download = `icon${size}.png`;
+            link.href = canvas.toDataURL();
+            link.click();
+        }
+        
+        // Generate all icons
+        createIcon('icon16', 16);
+        createIcon('icon48', 48);
+        createIcon('icon128', 128);
+        
+        console.log('Icons generated! Click the download buttons to save them.');
+    </script>
+</body>
+</html>

@@ -13,9 +13,21 @@ body {
   margin-bottom: 16px;
 }
 
+.title-section {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
 h3 {
   margin: 0;
   font-size: 16px;
+}
+
+.snapshot-count-display {
+  font-size: 12px;
+  color: #666;
+  font-weight: 500;
 }
 
 .settings-section {

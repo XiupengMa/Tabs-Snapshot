@@ -210,7 +210,12 @@ const App: React.FC = () => {
   return (
     <div>
       <div className="header">
-        <h3>Tabs Snapshot</h3>
+        <div className="title-section">
+          <h3>Tabs Snapshot</h3>
+          <div className="snapshot-count-display">
+            {snapshots.length} snapshot{snapshots.length !== 1 ? 's' : ''}
+          </div>
+        </div>
         <button onClick={handleSaveSnapshot}>Capture Now</button>
       </div>
       
